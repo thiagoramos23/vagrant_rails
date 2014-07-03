@@ -2,6 +2,10 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
+HOSTMANAGER_PLUGIN_INSTALLED = Vagrant.has_plugin?('vagrant-hostmanager')
+CACHIER_PLUGIN_INSTALLED = Vagrant.has_plugin?('vagrant-cachier')
+OMNIBUS_PLUGIN_INSTALLED = Vagrant.has_plugin?('vagrant-omnibus')
+LIBRARIAN_CHEF_PLUGIN_INSTALLED = Vagrant.has_plugin?('vagrant-librarian-chef')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Toda a configuração do Vagrant é feita aqui. Para uma referencia completa,
@@ -30,17 +34,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.ssh.forward_agent = true
 
-  config.hostmanager.enabled = true
-  config.hostmanager.manage_host = true
-  
   config.vm.synced_folder "~/projects/arthurms", "/var/www", type: "nfs"
 
-  config.librarian_chef.cheffile_dir = "chef/vendor/"
+  if CACHIER_PLUGIN_INSTALLED
+    config.cache.scope = :box
+  end
+
+  if HOSTMANAGER_PLUGIN_INSTALLED
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+  end
+
+  if LIBRARIAN_CHEF_PLUGIN_INSTALLED
+    config.librarian_chef.cheffile_dir = "chef/vendor/"
+  end
+  
   config.vm.provision "chef_solo" do |chef|
-    chef.cookbooks_path = [
-      "chef/cookbooks", 
-      "#{config.librarian_chef.cheffile_dir}/cookbooks"
-    ]
+    chef.cookbooks_path = ["chef/cookbooks"]
+    chef.cookbooks_path << "#{config.librarian_chef.cheffile_dir}/cookbooks" if LIBRARIAN_CHEF_PLUGIN_INSTALLED
 
     chef.add_recipe "base"
   end
