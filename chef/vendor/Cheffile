@@ -3,8 +3,8 @@
 
 site 'http://community.opscode.com/api/v1'
 
-cookbook 'apt', '~> 1.10'
-cookbook 'build-essential', '~> 1.4.4'
+cookbook 'apt'
+cookbook 'build-essential'
 cookbook 'apache2', '~> 1.9'
 cookbook 'database', '~> 2.0'
 cookbook 'mysql', '~> 4.1'

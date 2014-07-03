@@ -69,8 +69,8 @@ SITE
 
 DEPENDENCIES
   apache2 (~> 1.9)
-  apt (~> 1.10)
-  build-essential (~> 1.4.4)
+  apt (>= 0)
+  build-essential (>= 0)
   database (~> 2.0)
   mysql (~> 4.1)
   nginx (~> 1.8)
