@@ -77,6 +77,6 @@ DEPENDENCIES
   ohai (~> 1.1.12)
   php (~> 1.4)
   postgresql (>= 0)
-  rvm (~> 0.9)
+  rvm (>= 0)
   wordpress (~> 1.3.2)
 

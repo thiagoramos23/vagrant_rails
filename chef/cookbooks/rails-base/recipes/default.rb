@@ -6,8 +6,6 @@
 # 
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "apt"
-include_recipe "build-essential"
 include_recipe "rvm::system"
 include_recipe "rvm::vagrant"
 include_recipe "postgresql-base"
