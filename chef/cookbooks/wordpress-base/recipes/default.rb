@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: wordpress
+# Cookbook Name:: wordpress-base
 # Recipe:: default
 #
 # Copyright (C) 2014 Arthur Santos

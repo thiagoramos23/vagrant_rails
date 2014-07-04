@@ -1,4 +1,4 @@
-name             'wordpress'
+name             'wordpress-base'
 maintainer       'Arthur Santos'
 maintainer_email 'arthur.luiz@gmail.com'
 license          'All rights reserved'
