@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 include_recipe "rvm::system"
+include_recipe "rvm::user"
 include_recipe "rvm::vagrant"
 include_recipe "postgresql-base"
 include_recipe "nodejs-base"
