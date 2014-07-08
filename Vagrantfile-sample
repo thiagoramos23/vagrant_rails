@@ -45,6 +45,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
   end
 
+  if OMNIBUS_PLUGIN_INSTALLED
+    config.omnibus.chef_version = :latest
+  end
+
   if LIBRARIAN_CHEF_PLUGIN_INSTALLED
     config.librarian_chef.cheffile_dir = "chef/vendor/"
   end
