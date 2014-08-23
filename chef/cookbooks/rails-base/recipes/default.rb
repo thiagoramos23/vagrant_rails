@@ -6,9 +6,19 @@
 # 
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "rvm::system"
-include_recipe "rvm::user"
-include_recipe "rvm::vagrant"
+include_recipe "ruby_install"
+
+ruby_install_ruby "ruby #{node['chruby']['default']}"
+
+include_recipe "chruby"
+
+gem_binary_path = "#{node['ruby_install']['default_ruby_base_path']}/ruby-#{node['chruby']['default']}/bin/gem"
+
+gem_package 'bundler' do
+  gem_binary gem_binary_path
+  options "--no-document"
+end
+
 include_recipe "postgresql-base"
 include_recipe "nodejs-base"
 

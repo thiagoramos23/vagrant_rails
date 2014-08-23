@@ -9,8 +9,10 @@
 include_recipe "apt"
 include_recipe "build-essential"
 
-package "libsqlite3-dev" do
-  action :install
+%w(libsqlite3-dev git).each do |pkg|
+  package pkg do
+    action :install
+  end
 end
 
 gem_package "mailcatcher" do
