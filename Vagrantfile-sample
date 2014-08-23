@@ -27,14 +27,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "--cpus", "2"
     ]
   end
-  
-  config.vm.network "forwarded_port", guest: 80, host: 8080
 
   config.vm.network "private_network", ip: "192.168.107.49"
 
-  config.ssh.forward_agent = true
-
-  config.vm.synced_folder "~/projects/arthurms", "/var/www", type: "nfs"
+  config.vm.synced_folder "~/projects", "/var/www", type: "nfs"
 
   if CACHIER_PLUGIN_INSTALLED
     config.cache.scope = :box
@@ -45,19 +41,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.hostmanager.manage_host = true
   end
 
-  if OMNIBUS_PLUGIN_INSTALLED
-    config.omnibus.chef_version = :latest
-  end
-
   if LIBRARIAN_CHEF_PLUGIN_INSTALLED
-    config.librarian_chef.cheffile_dir = "chef/vendor/"
-  end
-  
-  config.vm.provision "chef_solo" do |chef|
-    chef.cookbooks_path = ["chef/cookbooks"]
-    chef.cookbooks_path << "#{config.librarian_chef.cheffile_dir}/cookbooks" if LIBRARIAN_CHEF_PLUGIN_INSTALLED
+    
+    config.omnibus.chef_version = :latest if OMNIBUS_PLUGIN_INSTALLED
 
-    chef.add_recipe "base"
+    config.librarian_chef.cheffile_dir = "chef/vendor/"
+  
+    config.vm.provision "chef_solo" do |chef|
+      chef.cookbooks_path = [
+        "chef/cookbooks",
+        "#{config.librarian_chef.cheffile_dir}/cookbooks"
+      ]
+
+      chef.add_recipe "base"
+    end
+
   end
 
 end
