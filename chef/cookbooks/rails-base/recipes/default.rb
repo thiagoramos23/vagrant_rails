@@ -19,10 +19,16 @@ gem_package 'bundler' do
   options "--no-document"
 end
 
+gem_package 'rails' do
+  gem_binary gem_binary_path
+  options "--no-document"
+  version '4.1.8'
+end
+
 include_recipe "postgresql-base"
 include_recipe "nodejs-base"
 
-%w(libmagickwand4 libmagickwand-dev).each do |pkg|
+%w(libmagickwand4 libmagickwand-dev xvfb x11-xkb-utils xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic).each do |pkg|
   package pkg do
     action :install
   end
