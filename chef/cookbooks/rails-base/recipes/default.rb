@@ -19,12 +19,6 @@ gem_package 'bundler' do
   options "--no-document"
 end
 
-gem_package 'rails' do
-  gem_binary gem_binary_path
-  options "--no-document"
-  version '4.1.8'
-end
-
 include_recipe "postgresql-base"
 include_recipe "nodejs-base"
 

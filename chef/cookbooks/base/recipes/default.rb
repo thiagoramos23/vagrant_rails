@@ -15,16 +15,16 @@ include_recipe "build-essential"
   end
 end
 
-gem_package "mailcatcher" do
-  action :install
-end
+#gem_package "mailcatcher" do
+#  action :install
+#end
 
-template "/etc/init.d/mailcatcher" do
-  source "mailcatcher.erb"
-  mode "0755"
-end
+#template "/etc/init.d/mailcatcher" do
+#  source "mailcatcher.erb"
+#  mode "0755"
+#end
 
-service "mailcatcher" do
-  supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
-end
+#service "mailcatcher" do
+#  supports :status => true, :restart => true, :reload => true
+#  action [ :enable, :start ]
+#end
